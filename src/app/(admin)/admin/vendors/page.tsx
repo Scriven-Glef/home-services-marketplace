@@ -1,20 +1,27 @@
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 import { getPendingVendors } from "../actions";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { VendorActions } from "./VendorActions";
 import { StatusBadge } from "@/components/StatusBadge";
 import { FileText } from "lucide-react";
 import Link from "next/link";
+import { AutoRefresher } from "@/components/AutoRefresher";
 
 export default async function VendorsPage() {
   const vendors = await getPendingVendors();
 
   return (
     <div className="space-y-6 max-w-6xl">
-      <div>
-        <h2 className="text-3xl font-bold tracking-tight text-slate-900">Vendor Approval Queue</h2>
-        <p className="text-slate-500 mt-2">
-          Review and approve new vendors looking to join the platform.
-        </p>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h2 className="text-3xl font-bold tracking-tight text-slate-900">Vendor Approval Queue</h2>
+          <p className="text-slate-500 mt-2">
+            Review and approve new vendors looking to join the platform.
+          </p>
+        </div>
+        <AutoRefresher intervalSeconds={8} label="Live Queue" />
       </div>
 
       <div className="border rounded-xl bg-white shadow-sm overflow-hidden">

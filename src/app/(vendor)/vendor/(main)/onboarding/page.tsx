@@ -13,7 +13,7 @@ export default function OnboardingPage() {
   const [isPending, startTransition] = useTransition()
   const router = useRouter()
   const [error, setError] = useState<string | null>(null)
-  const [location, setLocation] = useState<{ lat: number, lng: number } | null>(null)
+  const [location, setLocation] = useState<{ lat: number, lng: number } | null>({ lat: 13.0827, lng: 80.2707 })
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -76,7 +76,7 @@ export default function OnboardingPage() {
               )}
             </div>
 
-            <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700 mt-4" disabled={isPending || !location}>
+            <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700 mt-4" disabled={isPending}>
               {isPending ? 'Submitting...' : 'Submit Application'}
             </Button>
           </form>

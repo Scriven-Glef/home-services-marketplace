@@ -67,7 +67,9 @@ export async function updateVendorStatus(vendorId: string, status: 'approved' | 
     return { error: error.message };
   }
   
-  revalidatePath('/vendors');
+  revalidatePath('/admin/vendors');
+  revalidatePath('/admin', 'layout');
+  revalidatePath('/vendor');
   return { success: true };
 }
 
