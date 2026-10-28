@@ -237,7 +237,9 @@ export async function updateBookingStatus(bookingId: string, status: string) {
   }
 
   revalidatePath('/admin', 'layout');
+  revalidatePath('/admin/bookings');
   revalidatePath('/bookings');
+  revalidatePath('/vendor');
   return { success: true };
 }
 
@@ -256,7 +258,9 @@ export async function updateBookingQuote(bookingId: string, quotePrice: number) 
   }
 
   revalidatePath('/admin', 'layout');
+  revalidatePath('/admin/bookings');
   revalidatePath('/bookings');
+  revalidatePath('/vendor');
   return { success: true };
 }
 

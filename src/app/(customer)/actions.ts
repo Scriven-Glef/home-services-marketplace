@@ -516,5 +516,8 @@ export async function respondToQuote(bookingId: string, status: 'approved' | 'de
   }
 
   revalidatePath('/bookings');
+  revalidatePath('/vendor');
+  revalidatePath('/admin', 'layout');
+  revalidatePath('/admin/bookings');
   return { success: true };
 }

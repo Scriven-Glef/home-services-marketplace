@@ -306,7 +306,9 @@ export async function updateBookingStatus(bookingId: string, status: string) {
   }
 
   revalidatePath('/vendor');
-  revalidatePath('/admin', 'layout'); // Invalidate Admin Command Centre
+  revalidatePath('/bookings');
+  revalidatePath('/admin', 'layout');
+  revalidatePath('/admin/bookings');
   return { success: true };
 }
 
@@ -352,6 +354,9 @@ export async function provideFinalQuote(formData: FormData) {
   }
 
   revalidatePath('/vendor');
+  revalidatePath('/bookings');
+  revalidatePath('/admin', 'layout');
+  revalidatePath('/admin/bookings');
   return { success: true };
 }
 

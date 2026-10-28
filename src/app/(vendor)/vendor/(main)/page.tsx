@@ -1,4 +1,5 @@
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 import { Suspense } from 'react'
 import { getVendorProfile, getVendorBookings, updateBookingStatus, provideFinalQuote } from "../actions"
@@ -11,6 +12,7 @@ import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { MapPin, CheckCircle, Truck } from "lucide-react"
+import { AutoRefresher } from "@/components/AutoRefresher"
 
 function LoadingSkeleton() {
   return (
@@ -39,11 +41,14 @@ async function DashboardContent() {
 
   return (
     <>
-      <div>
-        <h2 className="text-3xl font-bold tracking-tight text-slate-900">Dashboard</h2>
-        <p className="text-slate-500 mt-2">
-          Welcome back, {profile.business_name}.
-        </p>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h2 className="text-3xl font-bold tracking-tight text-slate-900">Dashboard</h2>
+          <p className="text-slate-500 mt-2">
+            Welcome back, {profile.business_name}.
+          </p>
+        </div>
+        <AutoRefresher intervalSeconds={8} label="Live Orders" />
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">

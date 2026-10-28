@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
 import { Button } from '@/components/ui/button'
 import { CreditCard } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
@@ -79,6 +80,11 @@ export default async function PaymentPage({ searchParams }: { searchParams: Prom
           .from('bookings')
           .update({ order_number: orderNumber })
           .eq('id', resolvedParams.bookingId)
+
+        revalidatePath('/bookings')
+        revalidatePath('/vendor')
+        revalidatePath('/admin', 'layout')
+        revalidatePath('/admin/bookings')
 
         // In a real app, this is where you'd create a Razorpay/Stripe session
         redirect(`/payment/success?bookingId=${resolvedParams.bookingId}`)

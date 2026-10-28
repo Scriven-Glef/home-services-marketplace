@@ -1,20 +1,25 @@
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 import { getAllBookings } from "../actions";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { StatusBadge } from "@/components/StatusBadge";
 import { OverrideModal } from "./OverrideModal";
+import { AutoRefresher } from "@/components/AutoRefresher";
 
 export default async function BookingsPage() {
   const bookings = await getAllBookings();
 
   return (
     <div className="space-y-6 max-w-7xl">
-      <div>
-        <h2 className="text-3xl font-bold tracking-tight text-slate-900">Command Center</h2>
-        <p className="text-slate-500 mt-2">
-          Overview of all marketplace transactions and active bookings.
-        </p>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h2 className="text-3xl font-bold tracking-tight text-slate-900">Command Center</h2>
+          <p className="text-slate-500 mt-2">
+            Overview of all marketplace transactions and active bookings.
+          </p>
+        </div>
+        <AutoRefresher intervalSeconds={8} label="Live Transactions" />
       </div>
 
       <div className="border rounded-xl bg-white shadow-sm overflow-hidden">

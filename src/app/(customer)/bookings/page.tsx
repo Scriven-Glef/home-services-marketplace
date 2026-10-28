@@ -1,3 +1,6 @@
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 import { Suspense } from 'react'
 import { getCustomerBookings, respondToQuote } from '../actions'
 import { getSessionUserId } from '@/lib/auth'
@@ -6,6 +9,7 @@ import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { CalendarCheck, MapPin, Clock } from 'lucide-react'
+import { AutoRefresher } from '@/components/AutoRefresher'
 
 const STATUSES = ['pending', 'vendor_assigned', 'in_transit', 'completed']
 const STATUS_LABELS: Record<string, string> = {
@@ -181,8 +185,13 @@ async function BookingsList() {
 export default function CustomerBookingsPage() {
   return (
     <div className="max-w-4xl mx-auto px-6 py-12">
-      <h1 className="text-3xl font-bold text-slate-900 mb-2">My Bookings</h1>
-      <p className="text-slate-500 mb-8">Track your active and past service requests.</p>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+        <div>
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">My Bookings</h1>
+          <p className="text-slate-500">Track your active and past service requests.</p>
+        </div>
+        <AutoRefresher intervalSeconds={8} label="Live Status" />
+      </div>
       
       <Suspense fallback={<LoadingSkeleton />}>
         <BookingsList />
